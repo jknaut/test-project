@@ -2,6 +2,35 @@
   <head></head>
   <body>
     <div>This is a test</div>
-    <script>document.querySelector("div").style.backgroundColor="skyblue";</script>
+    <script type="module">
+  import JSZip from 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm';
+  import { saveAs } from 'https://cdn.jsdelivr.net/npm/file-saver@2.0.5/+esm';
+
+  async function makeMbz() {
+    const zip = new JSZip();
+
+    // Required manifest
+    const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<moodle_backup>
+  <information>
+    <name>Demo course</name>
+    <moodle_version>40000</moodle_version>
+  </information>
+</moodle_backup>`;
+    zip.file('moodle_backup.xml', manifest);
+
+    // Example activity
+    const act = `<activity><name>Label 1</name></activity>`;
+    zip.folder('activities/label_1').file('label.xml', act);
+
+    const blob = await zip.generateAsync({ type: 'blob' });
+    saveAs(blob, 'demo-course.mbz');   // note the .mbz extension
+  }
+
+  document.getElementById('make-mbz').addEventListener('click', makeMbz);
+</script>
+
+<button id="make-mbz">Download MBZ</button>
+
   </body>
 </html>
