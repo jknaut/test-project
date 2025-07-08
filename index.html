@@ -1,7 +1,25 @@
-<html>
-  <head></head>
-  <body>
-    <div>This is a test</div>
-    <script>document.querySelector("div").style.backgroundColor="skyblue";</script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XML Generator</title>
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    object-src 'none';
+    connect-src 'self';
+    img-src 'self' data: blob:;
+    media-src blob:;
+  ">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Generate XML File</h1>
+  <label for="userInput">Enter some text:</label><br>
+  <input type="text" id="userInput" placeholder="Your text here"><br>
+  <button id="downloadBtn">Download XML</button>
+
+  <script src="script.js"></script>
+</body>
 </html>
